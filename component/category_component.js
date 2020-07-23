@@ -65,14 +65,19 @@ module.exports = function (mongo, ObjectID, url, assert, dbb) {
                 }, function (err, db) {
                     assert.equal(null, err);
                     var cursor = db.db().collection(dbb.CATEGORYS).find();
+                
                     cursor.forEach(function (doc, err) {
+                       
                         if (err) {
                             callBack(null, true, err);
                             db.close();
                         } else {
                             categorys.push(doc);
+                            console.log('document is ', doc);
                         }
                     }, function () {
+
+
                         if (categorys.length == 0) {
                             callBack(null, true, "No category's Found");
                         } else {
